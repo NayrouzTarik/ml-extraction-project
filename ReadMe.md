@@ -4,12 +4,6 @@
 
 Système de recherche d'images par contenu utilisant YOLOv8 pour la détection d'objets et des descripteurs de features pour la similarité.
 
-## 👥 Équipe
-
-- **Nayrouz** : Backend (API Flask + Descripteurs)
-- **Aya** : Entraînement YOLOv8 + Transformations d'images
-- **Salma** : Frontend + Préparation dataset
-
 ## 🎯 Fonctionnalités
 
 1. **Détection d'objets** : YOLOv8 détecte automatiquement les objets dans les images
@@ -111,4 +105,5 @@ Pour toute question, contactez l'équipe sur le groupe WhatsApp/Discord.
 ---
 
 **Version** : 1.0.0  
+
 **Dernière mise à jour** : Décembre 2025

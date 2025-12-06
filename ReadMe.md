@@ -23,7 +23,7 @@ Frontend (HTML/CSS/JS) ←→ API Flask ←→ YOLOv8 + Descripteurs
 cbir-yolo-project/
 ├── backend/          # API Flask (Nayrouz)
 ├── frontend/         # Interface web (Salma/Aya)
-├── notebooks/        # Notebooks Colab (Nayrouz)
+├── notebooks/        # Notebooks Colab 
 ├── datasets/         # Images d'entraînement
 └── docs/            # Documentation
 ```
@@ -107,3 +107,4 @@ Pour toute question, contactez l'équipe sur le groupe WhatsApp/Discord.
 **Version** : 1.0.0  
 
 **Dernière mise à jour** : Décembre 2025
+

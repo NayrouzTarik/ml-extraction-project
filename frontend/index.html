@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Search & Object Detection</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for Histograms -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-eye"></i> <span>VisualSeek</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#"><i class="fa-solid fa-cloud-upload-alt"></i> Upload & Detect</a></li>
+                    <li><a href="#"><i class="fa-solid fa-images"></i> Collection</a></li>
+                    <li><a href="#"><i class="fa-solid fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Object Detection & Content-Based Search</h1>
+            </header>
+
+            <div class="workspace">
+                <!-- Left Panel: Image & Detection -->
+                <div class="panel image-panel">
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Drag & Drop or <span>Browse</span> to Upload</p>
+                    </div>
+
+                    <div class="canvas-container" id="canvasContainer" style="display: none;">
+                        <img id="sourceImage" src="" alt="Source Image">
+                        <canvas id="detectionCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Descriptors & Results -->
+                <div class="panel details-panel" id="detailsPanel">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <p>Upload an image to start detection.</p>
+                    </div>
+
+                    <div class="results-content" style="display: none;">
+                        <div class="section-header">
+                            <h2><i class="fa-solid fa-bullseye"></i> Detected Objects</h2>
+                            <span class="badge" id="objectCount">0 Found</span>
+                        </div>
+
+                        <div class="objects-list" id="objectsList">
+                            <!-- Object items will be injected here -->
+                        </div>
+
+                        <div id="descriptorView" class="descriptor-view" style="display: none;">
+                            <div class="section-header">
+                                <h3><i class="fa-solid fa-chart-bar"></i> Descriptors</h3>
+                                <button class="close-btn" onclick="closeDescriptors()"><i
+                                        class="fa-solid fa-times"></i></button>
+                            </div>
+
+                            <div class="visualizations-grid">
+                                <div class="vis-item">
+                                    <span>Color Histogram</span>
+                                    <img id="vis-color" class="vis-img" alt="Color Hist">
+                                </div>
+                                <div class="vis-item">
+                                    <span>Hu Moments (Contour)</span>
+                                    <img id="vis-hu" class="vis-img" alt="Hu Moments">
+                                </div>
+                                <div class="vis-item">
+                                    <span>HOG Features</span>
+                                    <img id="vis-hog" class="vis-img" alt="HOG">
+                                </div>
+                                <div class="vis-item">
+                                    <span>LBP Texture</span>
+                                    <img id="vis-lbp" class="vis-img" alt="LBP">
+                                </div>
+                                <div class="vis-item">
+                                    <span>Gradient Orientation</span>
+                                    <img id="vis-orientation" class="vis-img" alt="Orientation">
+                                </div>
+                            </div>
+
+                            <div class="similar-images-section">
+                                <h3><i class="fa-solid fa-search"></i> Similar Images</h3>
+                                <div class="images-grid" id="similarImagesGrid">
+                                    <!-- Similar images injected here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,8 +1,8 @@
 flask
-flask-restful
+flask-cors
 opencv-python
 numpy
 scipy
 scikit-image
-torch
-ultralytics  # pour YOLOv8
+ultralytics
+matplotlib

@@ -1,0 +1,105 @@
+<div style="display:grid; grid-template-columns: 1.15fr 0.85fr; gap:20px;">
+  <!-- LEFT -->
+  <div class="card">
+    <h2>Recherche 3D — View-based similarity</h2>
+    <p class="muted">
+      Principe : on rend plusieurs vues 2D (silhouettes) d’un modèle .obj, on extrait un descripteur par vue,
+      puis on agrège pour comparer les modèles (similarité).
+    </p>
+
+    <div class="row" style="margin-top: 10px;">
+      <span class="pill">Index: {{ statusInfo?.index_exists ? 'OK' : 'Non' }}</span>
+      <span class="pill">Index file: {{ statusInfo?.index_path || '—' }}</span>
+    </div>
+
+    <hr style="margin: 18px 0; border: none; border-top: 1px solid #edf2f7;">
+
+    <h3>1) Indexer la base 3D</h3>
+    <div class="row">
+      <label>Limit
+        <input type="number" [(ngModel)]="limit" />
+      </label>
+      <label>N_views
+        <input type="number" [(ngModel)]="nViews" />
+      </label>
+      <label>Img size
+        <input type="number" [(ngModel)]="imgSize" />
+      </label>
+
+      <button class="btn btn-primary" (click)="runIndex()" [disabled]="indexing">
+        {{ indexing ? 'Indexation...' : 'Indexer' }}
+      </button>
+
+      <button class="btn btn-secondary" (click)="refreshStatus()">Refresh status</button>
+    </div>
+
+    <hr style="margin: 18px 0; border: none; border-top: 1px solid #edf2f7;">
+
+    <h3>2) Rechercher (query .obj)</h3>
+    <div class="row">
+      <input type="file" accept=".obj" (change)="onFileChange($event)" />
+      <label>Top-K
+        <input type="number" [(ngModel)]="topK" />
+      </label>
+      <button class="btn btn-primary" (click)="runSearch()" [disabled]="searching">
+        {{ searching ? 'Recherche...' : 'Search' }}
+      </button>
+    </div>
+
+    <div *ngIf="errorMsg" style="margin-top: 12px; color: #b91c1c;">
+      {{ errorMsg }}
+    </div>
+
+    <!-- ✅ query preview -->
+    <div *ngIf="queryPreviewUrl" style="margin-top: 16px;">
+      <div style="font-weight:700; margin-bottom:6px;">Vue (silhouette) — Query</div>
+      <img
+        [src]="queryPreviewUrl"
+        width="160"
+        style="border:1px solid #e5e7eb; border-radius:10px; padding:6px;"
+      />
+    </div>
+
+    <div *ngIf="results.length" style="margin-top: 18px;">
+      <h3>Résultats ({{ results.length }}) — Query: {{ lastQueryName }}</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Preview</th>
+            <th>Modèle</th>
+            <th>Distance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of results" (click)="openModel(r.model)" style="cursor:pointer;">
+            <td>
+              <img
+                *ngIf="r.preview_url"
+                [src]="backendBase + r.preview_url"
+                width="90"
+                style="border:1px solid #e5e7eb; border-radius:10px; padding:4px;"
+              />
+            </td>
+            <td>{{ r.model }}</td>
+            <td>{{ r.distance | number:'1.6-6' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="muted" style="margin-top:10px;">
+        Clique sur un résultat pour l’afficher dans le viewer 3D (à droite).
+      </p>
+    </div>
+
+    <details style="margin-top: 16px;">
+      <summary class="muted">Réponse brute (debug)</summary>
+      <pre>{{ lastRaw | json }}</pre>
+    </details>
+  </div>
+
+  <!-- RIGHT -->
+  <div>
+    <app-obj-viewer [objUrl]="viewerUrl" [label]="viewerLabel"></app-obj-viewer>
+  </div>
+</div>
